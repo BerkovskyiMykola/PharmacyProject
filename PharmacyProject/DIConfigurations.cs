@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PharmacyProject.Entities;
 using PharmacyProject.Services.Database;
 using PharmacyProject.Services.JWT;
 using PharmacyProject.Services.JWT.Settings;
@@ -15,6 +17,8 @@ namespace PharmacyProject
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IDatabaseService, DatabaseService>();
             services.AddScoped<IMailService, MailService>();
+            services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }
