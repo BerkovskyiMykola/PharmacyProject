@@ -1,12 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using PharmacyProject.BLL.Services.Database;
+using PharmacyProject.Services.JWT;
 using PharmacyProject.Services.JWT.Settings;
 
 namespace PharmacyProject
 {
     public static class DIConfigurations
     {
+        public static IServiceCollection AddAppServices(this IServiceCollection services)
+        {
+            services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IDatabaseService, DatabaseService>();
+
+            return services;
+        }
+
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             services.AddSwaggerGen(options =>
