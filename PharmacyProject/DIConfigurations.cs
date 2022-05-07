@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using PharmacyProject.BLL.Services.Database;
+using PharmacyProject.Services.Database;
 using PharmacyProject.Services.JWT;
 using PharmacyProject.Services.JWT.Settings;
 
