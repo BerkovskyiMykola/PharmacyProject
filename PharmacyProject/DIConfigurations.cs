@@ -4,6 +4,7 @@ using Microsoft.OpenApi.Models;
 using PharmacyProject.Services.Database;
 using PharmacyProject.Services.JWT;
 using PharmacyProject.Services.JWT.Settings;
+using PharmacyProject.Services.Mail;
 
 namespace PharmacyProject
 {
@@ -13,6 +14,7 @@ namespace PharmacyProject
         {
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IDatabaseService, DatabaseService>();
+            services.AddScoped<IMailService, MailService>();
 
             return services;
         }
