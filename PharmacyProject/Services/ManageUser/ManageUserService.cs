@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PharmacyProject.DTO.Request;
 using PharmacyProject.EF;
 using PharmacyProject.Entities;
-using System.Security.Claims;
+using PharmacyProject.Services.Mail;
 using TestProject.DTO.Response;
 
 namespace PharmacyProject.Services.ManageUser
@@ -14,15 +14,18 @@ namespace PharmacyProject.Services.ManageUser
         private readonly DataContext _context;
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IMapper _mapper;
+        private readonly IMailService _mailService;
 
         public ManageUserService(
-            DataContext context, 
-            IPasswordHasher<User> passwordHasher, 
-            IMapper mapper)
+            DataContext context,
+            IPasswordHasher<User> passwordHasher,
+            IMapper mapper,
+            IMailService mailService)
         {
             _context = context;
             _passwordHasher = passwordHasher;
             _mapper = mapper;
+            _mailService = mailService;
         }
 
         public async Task<UserResponse> CreateUserAsync(UserRequest model)
@@ -33,6 +36,12 @@ namespace PharmacyProject.Services.ManageUser
             }
 
             var user = _mapper.Map<User>(model);
+
+            if(user.Role == Role.OwnerPharmacies)
+            {
+                var message = $"<p>Email: {user.Email}; Password: {user.Password}</p>";
+                await _mailService.SendEmailAsync(user.Email, "Credentials from PharmacyProject", message);
+            }
 
             user.Password = _passwordHasher.HashPassword(user, user.Password);
 
