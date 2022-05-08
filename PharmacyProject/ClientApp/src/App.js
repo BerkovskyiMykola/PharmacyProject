@@ -13,6 +13,7 @@ import Profile from "./components/Profile";
 import NotFound from "./components/NotFound";
 import Database from './components/Datebase';
 import UsersPage from './components/UsersPage';
+import PharmaciesPage from './components/PharmaciesPage';
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
 import './App.css'
@@ -40,6 +41,7 @@ const App = () => {
                 <PrivateRoute exact path="/profile" component={Profile} />
                 <PrivateRoute exact path="/database" component={Database} roles={["Admin"]} />
                 <PrivateRoute exact path="/users" component={UsersPage} roles={["Admin"]} />
+                <PrivateRoute exact path="/pharmacies" component={PharmaciesPage} roles={["OwnerPharmacies"]} />
                 <Route path="/404" component={NotFound} />
                 <Redirect to="/404" />
             </Layout>

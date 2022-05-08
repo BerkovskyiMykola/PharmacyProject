@@ -22,7 +22,7 @@ namespace PharmacyProject.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Pharmacy>>> GetPharmacies()
         {
-            return await _context.Pharmacies.ToListAsync();
+            return await _context.Pharmacies.Where(x => x.UserId.ToString() == HttpContext.User.Identity.Name).ToListAsync();
         }
 
         [HttpGet("one/{id}")]
@@ -79,7 +79,7 @@ namespace PharmacyProject.Controllers
             return CreatedAtAction("GetPharmacy", new { id = pharmacy.Id }, pharmacy);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeletePharmacy(Guid id)
         {
             var pharmacy = await _context.Pharmacies.FindAsync(id);
