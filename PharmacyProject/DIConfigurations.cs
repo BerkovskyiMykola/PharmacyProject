@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PharmacyProject.Entities;
+using PharmacyProject.Services.Account;
 using PharmacyProject.Services.Database;
 using PharmacyProject.Services.JWT;
 using PharmacyProject.Services.JWT.Settings;
 using PharmacyProject.Services.Mail;
+using PharmacyProject.Services.ManageUser;
 
 namespace PharmacyProject
 {
@@ -17,6 +19,8 @@ namespace PharmacyProject
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IDatabaseService, DatabaseService>();
             services.AddScoped<IMailService, MailService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IManageUserService, ManageUserService>();
             services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -1,22 +1,50 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
+import { history } from './utils/history';
+import { logout } from "./actions/auth";
+import { clearMessage } from "./actions/message";
+import { Redirect, Router } from 'react-router-dom';
+import EventBus from "./common/EventBus";
+import Layout from './components/Layout';
+import Home from './components/Home';
+import Login from "./components/Login";
+import Profile from "./components/Profile";
+import NotFound from "./components/NotFound";
+import Database from './components/Datebase';
+import UsersPage from './components/UsersPage';
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
-import './custom.css'
+import './App.css'
 
-export default class App extends Component {
-  static displayName = App.name;
+const App = () => {
+    const dispatch = useDispatch();
 
-  render () {
+    useEffect(() => {
+        history.listen((location) => {
+            dispatch(clearMessage());
+        });
+
+        EventBus.on("logout", () => {
+            dispatch(logout());
+        });
+
+        return () => { EventBus.remove("logout"); }
+    }, [dispatch])
+
     return (
-      <Layout>
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+        <Router history={history}>
+            <Layout>
+                <Route exact path={["/", "/home"]} component={Home} />
+                <Route exact path="/login" component={Login} />
+                <PrivateRoute exact path="/profile" component={Profile} />
+                <PrivateRoute exact path="/database" component={Database} roles={["Admin"]} />
+                <PrivateRoute exact path="/users" component={UsersPage} roles={["Admin"]} />
+                <Route path="/404" component={NotFound} />
+                <Redirect to="/404" />
+            </Layout>
+        </Router>
     );
-  }
 }
+
+export default App;

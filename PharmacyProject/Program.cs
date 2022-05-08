@@ -2,14 +2,28 @@ using Microsoft.EntityFrameworkCore;
 using PharmacyProject;
 using PharmacyProject.EF;
 
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(myAllowSpecificOrigins,
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:44402")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+        });
+});
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddSwagger();
 builder.Services.AddJwtAuthentication();
+builder.Services.AddAppServices();
 
 var app = builder.Build();
 
@@ -37,6 +51,8 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthentication();
 app.UseAuthorization();

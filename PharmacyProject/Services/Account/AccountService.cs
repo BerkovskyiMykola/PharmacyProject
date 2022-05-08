@@ -21,7 +21,6 @@ namespace PharmacyProject.Services.Account
             DataContext context,
             IJwtService jwtService,
             IPasswordHasher<User> passwordHasher,
-            IHttpContextAccessor httpContextAccessor,
             IMapper mapper)
         {
             _context = context;
