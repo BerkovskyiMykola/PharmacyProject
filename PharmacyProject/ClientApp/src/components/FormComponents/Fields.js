@@ -64,7 +64,7 @@ export const PasswordInput = ({ name, model, setModel }) => {
     );
 }
 
-export const FieldInput = ({ name, model, setModel, minLength, maxLength, required = true }) => {
+export const FieldInput = ({ type = "text", name, model, setModel, minLength, maxLength, required = true }) => {
 
     const { t } = useTranslation();
 
@@ -72,7 +72,7 @@ export const FieldInput = ({ name, model, setModel, minLength, maxLength, requir
         <FormGroup>
             <Label for={name}>{t(name)}</Label>
             <Input
-                type="text"
+                type={type}
                 name={name}
                 id={name}
                 required={required}

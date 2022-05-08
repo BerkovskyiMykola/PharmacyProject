@@ -7,7 +7,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import { clearMessage } from '../../actions/message';
 import { FieldInput } from '../FormComponents';
 
-const PharmaciesPage = () => {
+const PharmaciesPage = (props) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const [modalAdd, setModalAdd] = useState(false);
@@ -67,6 +67,11 @@ const PharmaciesPage = () => {
                     onClick={() => { dispatch(deletePharmacy(item.id, t)) }}
                     className="btn btn-outline-danger btn-sm float-left">
                     <i className="bi-trash" />
+                </button>
+                <button
+                    onClick={() => { props.history.push("/drugs/" + item.id) }}
+                    className="btn btn-outline-danger btn-sm float-left">
+                    <i className="bi-folder" />
                 </button>
             </td>
         )

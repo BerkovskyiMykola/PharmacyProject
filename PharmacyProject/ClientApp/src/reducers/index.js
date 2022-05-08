@@ -5,6 +5,7 @@ import profile from "./profile";
 import database from "./database";
 import user from "./user";
 import pharmacy from "./pharmacy";
+import drug from "./drug";
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     profile,
     database,
     user,
-    pharmacy
+    pharmacy,
+    drug
 });
