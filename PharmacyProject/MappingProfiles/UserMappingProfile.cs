@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using TestProject.BLL.Services.JWT.Models;
-using TestProject.DAL.Entities;
-using TestProject.DTO.Request;
+using PharmacyProject.DTO.Request;
+using PharmacyProject.DTO.Response;
+using PharmacyProject.Entities;
+using PharmacyProject.Services.JWT.Models;
 using TestProject.DTO.Response;
 
 namespace TestProject.BLL.MappingProfiles
