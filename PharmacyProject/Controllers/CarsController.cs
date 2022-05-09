@@ -87,7 +87,6 @@ namespace PharmacyProject.Controllers
             });
         }
 
-        // DELETE: api/Cars/5
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteCar(Guid id)
         {
