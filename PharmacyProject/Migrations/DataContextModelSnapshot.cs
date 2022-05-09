@@ -22,6 +22,24 @@ namespace PharmacyProject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("PharmacyProject.Entities.Basket", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DrugId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "DrugId");
+
+                    b.HasIndex("DrugId");
+
+                    b.ToTable("Baskets", (string)null);
+                });
+
             modelBuilder.Entity("PharmacyProject.Entities.Car", b =>
                 {
                     b.Property<Guid>("Id")
@@ -137,6 +155,25 @@ namespace PharmacyProject.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("PharmacyProject.Entities.Basket", b =>
+                {
+                    b.HasOne("PharmacyProject.Entities.Drug", "Drug")
+                        .WithMany("Baskets")
+                        .HasForeignKey("DrugId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PharmacyProject.Entities.User", "User")
+                        .WithMany("Baskets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Drug");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("PharmacyProject.Entities.Car", b =>
                 {
                     b.HasOne("PharmacyProject.Entities.Pharmacy", "Pharmacy")
@@ -170,6 +207,11 @@ namespace PharmacyProject.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("PharmacyProject.Entities.Drug", b =>
+                {
+                    b.Navigation("Baskets");
+                });
+
             modelBuilder.Entity("PharmacyProject.Entities.Pharmacy", b =>
                 {
                     b.Navigation("Cars");
@@ -179,6 +221,8 @@ namespace PharmacyProject.Migrations
 
             modelBuilder.Entity("PharmacyProject.Entities.User", b =>
                 {
+                    b.Navigation("Baskets");
+
                     b.Navigation("Pharmacies");
                 });
 #pragma warning restore 612, 618

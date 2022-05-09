@@ -13,5 +13,8 @@ namespace PharmacyProject.Entities
 
         public Guid PharmacyId { get; set; }
         public Pharmacy? Pharmacy { get; set; }
+
+        public List<Basket> Baskets { get; set; } = new List<Basket>();
+        public List<User> Users { get; set; } = new List<User>();
     }
 }

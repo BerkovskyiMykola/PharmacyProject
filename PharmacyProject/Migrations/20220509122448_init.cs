@@ -89,6 +89,36 @@ namespace PharmacyProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Baskets",
+                columns: table => new
+                {
+                    DrugId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Baskets", x => new { x.UserId, x.DrugId });
+                    table.ForeignKey(
+                        name: "FK_Baskets_Drugs_DrugId",
+                        column: x => x.DrugId,
+                        principalTable: "Drugs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Baskets_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Baskets_DrugId",
+                table: "Baskets",
+                column: "DrugId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Cars_PharmacyId",
                 table: "Cars",
@@ -107,6 +137,9 @@ namespace PharmacyProject.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Baskets");
+
             migrationBuilder.DropTable(
                 name: "Cars");
 

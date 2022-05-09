@@ -60,6 +60,8 @@ namespace PharmacyProject.Services.ManageUser
                 throw new KeyNotFoundException("No user found");
             }
 
+            _context.Baskets.RemoveRange(_context.Baskets.Where(x => x.UserId == userId));
+
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

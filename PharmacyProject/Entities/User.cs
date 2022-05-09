@@ -18,5 +18,8 @@ namespace PharmacyProject.Entities
         public Role Role { get; set; }
 
         public List<Pharmacy> Pharmacies { get; set; } = new List<Pharmacy>();
+
+        public List<Basket> Baskets { get; set; } = new List<Basket>();
+        public List<Drug> Drugs { get; set; } = new List<Drug>();
     }
 }
