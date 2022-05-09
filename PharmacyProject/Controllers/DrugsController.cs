@@ -1,10 +1,4 @@
-﻿#nullable disable
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PharmacyProject.EF;
@@ -29,7 +23,7 @@ namespace PharmacyProject.Controllers
         {
             var pharmacies = await _context.Pharmacies.Include(x => x.Drugs).SingleOrDefaultAsync(x => x.Id == id && x.UserId.ToString() == HttpContext.User.Identity.Name);
 
-            if(pharmacies == null)
+            if (pharmacies == null)
             {
                 return NotFound();
             }
@@ -105,11 +99,6 @@ namespace PharmacyProject.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool DrugExists(Guid id)
-        {
-            return _context.Drugs.Any(e => e.Id == id);
         }
     }
 }
