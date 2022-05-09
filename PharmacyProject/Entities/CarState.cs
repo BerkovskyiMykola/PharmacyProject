@@ -2,7 +2,7 @@
 {
     public enum CarState : byte
     {
-        Avaliable = 0,
+        Awaliable = 0,
         InUse = 1,
         Maintenance = 2,
     }

@@ -73,6 +73,11 @@ const PharmaciesPage = (props) => {
                     className="btn btn-outline-danger btn-sm float-left">
                     <i className="bi-folder" />
                 </button>
+                <button
+                    onClick={() => { props.history.push("/cars/" + item.id) }}
+                    className="btn btn-outline-danger btn-sm float-left">
+                    <i className="bi-folder" />
+                </button>
             </td>
         )
     }
