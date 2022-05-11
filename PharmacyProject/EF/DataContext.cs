@@ -10,6 +10,7 @@ namespace PharmacyProject.EF
         public DbSet<Car> Cars => Set<Car>();
         public DbSet<Drug> Drugs => Set<Drug>();
         public DbSet<Basket> Baskets => Set<Basket>();
+        public DbSet<Order> Orders => Set<Order>();
 
         private readonly IConfiguration Configuration;
 
@@ -45,6 +46,13 @@ namespace PharmacyProject.EF
                     j.HasKey(t => new { t.UserId, t.DrugId });
                     j.ToTable("Baskets");
                 });
+
+            modelBuilder
+                .Entity<User>()
+                .HasMany(x => x.Orders)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -61,7 +61,7 @@ namespace PharmacyProject.Services.ManageUser
             }
 
             _context.Baskets.RemoveRange(_context.Baskets.Where(x => x.UserId == userId));
-
+            _context.Orders.RemoveRange(_context.Orders.Where(x => x.UserId == userId));
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }

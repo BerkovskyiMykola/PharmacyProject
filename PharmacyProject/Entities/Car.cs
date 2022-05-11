@@ -10,5 +10,7 @@
 
         public Guid PharmacyId { get; set; }
         public Pharmacy? Pharmacy { get; set; }
+
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }

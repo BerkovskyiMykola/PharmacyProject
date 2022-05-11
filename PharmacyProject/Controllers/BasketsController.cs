@@ -53,7 +53,6 @@ namespace PharmacyProject.Controllers
                 }
                 else
                 {
-                    drug.Amount -= basket.Amount - model.Amount;
                     model.Amount = basket.Amount + model.Amount;
 
                     await _context.SaveChangesAsync();
@@ -68,7 +67,6 @@ namespace PharmacyProject.Controllers
             }
 
             basket.UserId = Guid.Parse(HttpContext.User.Identity.Name);
-            drug.Amount -= basket.Amount;
             _context.Baskets.Add(basket);
 
             await _context.SaveChangesAsync();
@@ -97,7 +95,6 @@ namespace PharmacyProject.Controllers
                 }
                 else
                 {
-                    drug.Amount -= basket.Amount - model.Amount;
                     model.Amount = basket.Amount + model.Amount;
 
                     await _context.SaveChangesAsync();

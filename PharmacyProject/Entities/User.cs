@@ -21,5 +21,6 @@ namespace PharmacyProject.Entities
 
         public List<Basket> Baskets { get; set; } = new List<Basket>();
         public List<Drug> Drugs { get; set; } = new List<Drug>();
+        public List<Order> Orders { get; set; } = new List<Order>();
     }
 }
